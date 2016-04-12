@@ -1,0 +1,9 @@
+{
+  "name": "mackApi",
+  "description": "Providing API",
+  "author": {
+    "name": "Monty Khanna",
+    "email": "montykhanna007@hotmail.com"
+  },
+  "version": "1.0"
+}
