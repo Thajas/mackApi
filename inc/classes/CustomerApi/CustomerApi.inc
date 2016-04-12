@@ -15,6 +15,11 @@ if (! class_exists ( 'CustomerApi' )) {
 			$this->detect = func_get_args ()['2'];
 			$this->setAction ();
 		}
+		public function __destruct() {
+			$this->obj = null;
+			$this->pdo = null;
+			$this->detect = null;
+		}
 		public function getAction() {
 			return $this->action;
 		}
@@ -34,11 +39,20 @@ if (! class_exists ( 'CustomerApi' )) {
 			$conn->bindParam ( 1, $keyword, 2 );
 			$conn->execute ();
 			$result = $conn->fetchAll ( 2 );
+			header('Content-Type: application/json');
 			if (count ( $result ) > 0) {
-				echo json_encode ( $result [0] );
+				echo json_encode ( array (
+						'status' => 1,
+						'data' => array_filter ( $result [0] ) 
+				), JSON_PRETTY_PRINT );
 			} else {
-				echo 'Invalid search keyword';
+				echo json_encode ( array (
+						'status' => 0,
+						'error_code' => 400,
+						'message' => 'Invalid search keyword' 
+				), JSON_PRETTY_PRINT );
 			}
+			exit();
 		}
 		public function customerRegister() {
 			echo "From customer register";

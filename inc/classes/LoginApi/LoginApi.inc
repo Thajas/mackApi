@@ -15,6 +15,11 @@ if (! class_exists ( 'LoginApi' )) {
 			$this->detect = func_get_args ()['2'];
 			$this->setAction ();
 		}
+		public function __destruct() {
+			$this->obj = null;
+			$this->pdo = null;
+			$this->detect = null;
+		}
 		public function getAction() {
 			return $this->action;
 		}
@@ -38,11 +43,20 @@ if (! class_exists ( 'LoginApi' )) {
 			$conn->bindParam ( 3, $password, 2 );
 			$conn->execute ();
 			$result = $conn->fetchAll ( 2 );
+			header ( 'Content-Type: application/json' );
 			if (count ( $result ) > 0) {
-				echo json_encode ( $result [0] );
+				echo json_encode ( array (
+						'status' => 1,
+						'data' => array_filter ( $result [0] ) 
+				), JSON_PRETTY_PRINT );
 			} else {
-				echo 'Invalid username or password';
+				echo json_encode ( array (
+						'status' => 0,
+						'error_code' => 400,
+						'message' => 'Invalid username or password' 
+				), JSON_PRETTY_PRINT );
 			}
+			exit ();
 		}
 		public function Logout() {
 			echo "From Logout";
