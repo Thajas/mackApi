@@ -27,7 +27,7 @@ if (! class_exists ( 'CustomerApi' )) {
 			$this->action = ($this->obj->getParameters ()['action'] !== null) ? $this->obj->getParameters ()['action'] : $this->getAction ();
 		}
 		public function customerSearch() {
-			if ($this->detect->getDevice () === 1) // Mobile
+			if ($this->detect->getDevice () === 2) // Mobile
 				$keyword = $this->obj->getParameters ()['keyword'];
 			$query = "SELECT cus.name, cus.address_one, cus.address_two, cus.state, cus.city,
                         cus.ticket_no, cus.entry_time, cus.initiated_by, cus.meeting_trigger,
@@ -47,7 +47,7 @@ if (! class_exists ( 'CustomerApi' )) {
 			}
 		}
 		public function customerRegister() {
-			if ($this->detect->getDevice () === 1) // Mobile
+			if ($this->detect->getDevice () === 2) // Mobile
 				$message = 'From customer register';
 			$this->obj->getView ( $message );
 		}

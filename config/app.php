@@ -62,5 +62,9 @@ $app = [
 		
 		'Session' => [ 
 				'defaults' => 'php' 
-		] 
+		],
+
+		'View' => [
+				'ext'	=> '.jsp'
+		]
 ];

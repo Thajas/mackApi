@@ -44,8 +44,24 @@ if (! class_exists ( 'Object' )) {
 		public function getEncoding() {
 			return $this->encoding;
 		}
+		public function getViewExt() {
+			return $this->viewext;
+		}
 		public function getView($data = null, $error = true) {
-			require_once VIEW . 'Api.jsp';
+			if (file_exists ( VIEW . 'Api' . $this->getViewExt () )) {
+				require_once VIEW . 'Api' . $this->getViewExt ();
+			} else {
+				$dir = scandir ( VIEW );
+				foreach ( $dir as $dirValues ) {
+					$fileName = array_filter ( explode ( '.', $dirValues ) );
+					if ($fileName [0] === 'Api') {
+						$oldfilename = VIEW . $fileName [0] . '.' . $fileName [1];
+						$newfilename = VIEW . 'Api' . $this->getViewExt ();
+						rename ( $oldfilename, $newfilename );
+					}
+				}
+				require_once $newfilename;
+			}
 		}
 		public function setMode() {
 			$this->mode = ($this->param ['debug'] !== '') ? $this->param ['debug'] : $this->getMode ();
@@ -82,6 +98,9 @@ if (! class_exists ( 'Object' )) {
 		}
 		public function setEncoding() {
 			$this->encoding = ($this->param ['Datasources'] [$this->ds] ['encoding'] !== '') ? $this->param ['Datasources'] [$this->ds] ['encoding'] : $this->getEncoding ();
+		}
+		public function setViewExt() {
+			$this->viewext = ($this->param ['View'] ['ext'] !== '') ? $this->param ['View'] ['ext'] : $this->getViewExt ();
 		}
 		public function displayErrors() {
 			if ($this->getMode ()) {

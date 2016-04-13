@@ -96,6 +96,12 @@ abstract class CoreObject {
 	protected $encoding = null;
 	/**
 	 *
+	 * @var : [string] $Viewext
+	 *     
+	 */
+	protected $viewext = 'jsp';
+	/**
+	 *
 	 * @method : __construct()
 	 *        
 	 */
@@ -113,6 +119,7 @@ abstract class CoreObject {
 		$this->setPassword ();
 		$this->setDatabase ();
 		$this->setEncoding ();
+		$this->setViewExt ();
 		$this->displayErrors ();
 	}
 	/**
@@ -201,10 +208,19 @@ abstract class CoreObject {
 	}
 	/**
 	 *
-	 * @method : getView
+	 * @method : getViewExt
 	 * @return : file
 	 */
-	protected function getView() {
+	protected function getViewExt() {
+	}
+	/**
+	 * 
+	 * @param string/array $data
+	 * @param boolean $error
+	 * 
+	 * @return string
+	 */
+	protected function getView($data,$error) {
 	}
 	/**
 	 *
