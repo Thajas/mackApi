@@ -5,7 +5,7 @@ if(!defined('BROWSER_INC')):
 	define('BROWSER_INC',1);
 
 	if (!class_exists('Device_Detect')) {
-		require LIBRARY . 'MobileDetect.inc';
+		require LIBRARY . 'MobileDetect.php';
 		class Device_Detect extends Mobile_Detect{
 
 			/**
