@@ -2,7 +2,7 @@
 defined ( 'ACCESS' ) or exit ( 'No direct script access allowed' );
 
 if (! class_exists ( 'CustomerApi' )) {
-	require CLASSES . 'Device/DeviceDetect.inc';
+	require CLASSES . 'Device/DeviceDetect.php';
 	class CustomerApi {
 		private $obj = null;
 		private $pdo = null;
