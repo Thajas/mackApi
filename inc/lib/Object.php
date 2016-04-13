@@ -44,6 +44,9 @@ if (! class_exists ( 'Object' )) {
 		public function getEncoding() {
 			return $this->encoding;
 		}
+		public function getView($data = null, $error = true) {
+			require_once VIEW . 'Api.jsp';
+		}
 		public function setMode() {
 			$this->mode = ($this->param ['debug'] !== '') ? $this->param ['debug'] : $this->getMode ();
 		}
@@ -121,5 +124,5 @@ if (! class_exists ( 'Object' )) {
 	$params = $params->getArrayCopy ();
 	$object = new Object ( $params );
 	$params = [ ];
-	require LIBRARY . 'Security.inc';
+	require LIBRARY . 'Security.php';
 }		

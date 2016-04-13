@@ -27,7 +27,7 @@ if (! class_exists ( 'LoginApi' )) {
 			$this->action = ($this->obj->getParameters ()['action'] !== null) ? $this->obj->getParameters ()['action'] : $this->getAction ();
 		}
 		public function Login() {
-			if ($this->detect->getDevice () === 2) // Mobile
+			if ($this->detect->getDevice () === 1) // Mobile
 				$username = $this->obj->getParameters ()['username']; // 'testone';
 			$password = md5 ( $this->obj->getParameters ()['password'] ); // 'dea404003c3a80819f73187842f5d1de';
 			$query = 'SELECT log.id, log.username, usr.email, usr.first_name, usr.last_name,
@@ -43,23 +43,17 @@ if (! class_exists ( 'LoginApi' )) {
 			$conn->bindParam ( 3, $password, 2 );
 			$conn->execute ();
 			$result = $conn->fetchAll ( 2 );
-			header ( 'Content-Type: application/json' );
 			if (count ( $result ) > 0) {
-				echo json_encode ( array (
-						'status' => 1,
-						'data' => array_filter ( $result [0] ) 
-				), JSON_PRETTY_PRINT );
+				$this->obj->getView ( $result [0], false );
 			} else {
-				echo json_encode ( array (
-						'status' => 0,
-						'error_code' => 400,
-						'message' => 'Invalid username or password' 
-				), JSON_PRETTY_PRINT );
+				$message = 'Invalid username or password';
+				$this->obj->getView ( $message );
 			}
-			exit ();
 		}
 		public function Logout() {
-			echo "From Logout";
+			if ($this->detect->getDevice () === 1) // Mobile
+				$message = 'From Logout';
+			$this->obj->getView ( $message );
 		}
 	}
 	$loginApi = new LoginApi ( $object, $db, $detect );

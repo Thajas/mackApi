@@ -34,6 +34,11 @@ define ( 'COMMANDS', INC . 'commands' . DS );
 define ( 'LIBRARY', INC . 'lib' . DS );
 
 /**
+ * Path to the vidw directory.
+ */
+define ( 'VIEW', INC . 'view' . DS );
+
+/**
  * Path to the config directory.
  */
 define ( 'CONFIG', ROOT . DS . 'config' . DS );

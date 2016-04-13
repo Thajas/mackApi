@@ -27,7 +27,7 @@ if (! class_exists ( 'CustomerApi' )) {
 			$this->action = ($this->obj->getParameters ()['action'] !== null) ? $this->obj->getParameters ()['action'] : $this->getAction ();
 		}
 		public function customerSearch() {
-			if ($this->detect->getDevice () === 2) // Mobile
+			if ($this->detect->getDevice () === 1) // Mobile
 				$keyword = $this->obj->getParameters ()['keyword'];
 			$query = "SELECT cus.name, cus.address_one, cus.address_two, cus.state, cus.city,
                         cus.ticket_no, cus.entry_time, cus.initiated_by, cus.meeting_trigger,
@@ -39,23 +39,17 @@ if (! class_exists ( 'CustomerApi' )) {
 			$conn->bindParam ( 1, $keyword, 2 );
 			$conn->execute ();
 			$result = $conn->fetchAll ( 2 );
-			header('Content-Type: application/json');
 			if (count ( $result ) > 0) {
-				echo json_encode ( array (
-						'status' => 1,
-						'data' => array_filter ( $result [0] ) 
-				), JSON_PRETTY_PRINT );
+				$this->obj->getView ( $result [0], false );
 			} else {
-				echo json_encode ( array (
-						'status' => 0,
-						'error_code' => 400,
-						'message' => 'Invalid search keyword' 
-				), JSON_PRETTY_PRINT );
+				$message = 'Invalid search keyword';
+				$this->obj->getView ( $message );
 			}
-			exit();
 		}
 		public function customerRegister() {
-			echo "From customer register";
+			if ($this->detect->getDevice () === 1) // Mobile
+				$message = 'From customer register';
+			$this->obj->getView ( $message );
 		}
 	}
 	$customerapi = new CustomerApi ( $object, $db, $detect );

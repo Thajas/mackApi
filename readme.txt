@@ -47,3 +47,17 @@ GET  : http://localhost/mackApi/customer?action=cus&keyword=royal enfield
 POST : http://localhost/mackApi/customer
 
 Note : In keyword you have to enter customer name.
+
+
+
+Testing :
+**********************************************
+1.) If you are using GET Method (Default) then you have to use GET Url's.
+
+2.) If you are using POST Method (Change method from GET to POST in app.php) then you have to use POST url's. 
+
+3.) These API's work if platform is Mobile. 
+	if you want to run on Desktop Eg. In CustomerApi.inc file, you have to change device type.
+	
+	if ($this->detect->getDevice () === 2) // Mobile
+	if ($this->detect->getDevice () === 1) // Desktop 

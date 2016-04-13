@@ -201,6 +201,13 @@ abstract class CoreObject {
 	}
 	/**
 	 *
+	 * @method : getView
+	 * @return : file
+	 */
+	protected function getView() {
+	}
+	/**
+	 *
 	 * @method : setMode
 	 * @param
 	 *        	: string
