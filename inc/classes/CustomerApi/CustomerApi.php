@@ -16,9 +16,14 @@ if (! class_exists ( 'CustomerApi' )) {
 			$this->setAction ();
 		}
 		public function __destruct() {
-			$this->obj = null;
-			$this->pdo = null;
-			$this->detect = null;
+			$this->ResetVar ();
+			print_r($params);	
+		}
+		public function ResetVar() {
+			$classVars = array_keys ( get_class_vars ( get_class ( $this ) ) );
+			foreach ( $classVars as $var ) {
+				$this->$var = null;
+			}
 		}
 		public function getAction() {
 			return $this->action;
@@ -27,7 +32,7 @@ if (! class_exists ( 'CustomerApi' )) {
 			$this->action = ($this->obj->getParameters ()['action'] !== null) ? $this->obj->getParameters ()['action'] : $this->getAction ();
 		}
 		public function customerSearch() {
-			if ($this->detect->getDevice () === 2) // Mobile
+			if ($this->detect->getDevice () === 1) // Mobile
 				$keyword = $this->obj->getParameters ()['keyword'];
 			$query = "SELECT cus.name, cus.address_one, cus.address_two, cus.state, cus.city,
                         cus.ticket_no, cus.entry_time, cus.initiated_by, cus.meeting_trigger,

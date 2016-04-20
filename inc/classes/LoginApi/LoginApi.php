@@ -16,9 +16,13 @@ if (! class_exists ( 'LoginApi' )) {
 			$this->setAction ();
 		}
 		public function __destruct() {
-			$this->obj = null;
-			$this->pdo = null;
-			$this->detect = null;
+			$this->ResetVar ();
+		}
+		public function ResetVar() {
+			$classVars = array_keys ( get_class_vars ( get_class ( $this ) ) );
+			foreach ( $classVars as $var ) {
+				$this->$var = null;
+			}
 		}
 		public function getAction() {
 			return $this->action;
@@ -27,7 +31,7 @@ if (! class_exists ( 'LoginApi' )) {
 			$this->action = ($this->obj->getParameters ()['action'] !== null) ? $this->obj->getParameters ()['action'] : $this->getAction ();
 		}
 		public function Login() {
-			if ($this->detect->getDevice () === 2) // Mobile
+			if ($this->detect->getDevice () === 1) // Mobile
 				$username = $this->obj->getParameters ()['username']; // 'testone';
 			$password = md5 ( $this->obj->getParameters ()['password'] ); // 'dea404003c3a80819f73187842f5d1de';
 			$query = 'SELECT log.id, log.username, usr.email, usr.first_name, usr.last_name,
