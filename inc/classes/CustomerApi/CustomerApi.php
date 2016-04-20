@@ -16,9 +16,9 @@ if (! class_exists ( 'CustomerApi' )) {
 			$this->setAction ();
 		}
 		public function __destruct() {
-			$this->ResetVar ();	
+			$this->resetVar ();	
 		}
-		public function ResetVar() {
+		public function resetVar() {
 			$classVars = array_keys ( get_class_vars ( get_class ( $this ) ) );
 			foreach ( $classVars as $var ) {
 				$this->$var = null;
